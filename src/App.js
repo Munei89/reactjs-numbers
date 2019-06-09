@@ -1,10 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
 import DateRangePicker from 'react-daterange-picker';
 import 'react-daterange-picker/dist/css/react-calendar.css';
 import originalMoment from 'moment';
 import { extendMoment } from 'moment-range';
+import { MDBInput, MDBContainer, MDBRow, MDBCol, MDBMedia } from "mdbreact";
+
+
 
 import { getFact } from './actions/index';
 const moment = extendMoment(originalMoment);
@@ -64,46 +69,85 @@ class App extends React.Component {
 		leap_year = leap_year.length == 0 ? '-' : leap_year.join(', ');
 		return (
 			<div className="info-box">
-				<div>
-					Number of days between {start.format('MM/DD/YY')} and {end.format('MM/DD/YY')} is{' '}
-					<strong>{diff}</strong>
-				</div>
-				<div>
-					Leap Years: <strong>{leap_year}</strong>
-				</div>
-				<div>
-					Number of Mondays between {start.format('MM/DD/YY')} and {end.format('MM/DD/YY')} is{' '}
-					<strong>{this.state.mondays}</strong>
-				</div>
-				<div>
-					<br />
-					<strong>What happened on this day?</strong>
-					<p>{this.props.info.data}</p>
-				</div>
+					<MDBContainer>
+
+<MDBRow>
+<MDBMedia>
+<MDBMedia body>
+ <MDBMedia heading>
+ 	Number of days between
+</MDBMedia>
+{start.format('MM/DD/YY')} and {end.format('MM/DD/YY')} is{' '} - <strong>{diff}</strong>
+</MDBMedia>
+</MDBMedia>
+
+</MDBRow>
+
+<MDBRow>
+<MDBMedia>
+<MDBMedia body>
+ <MDBMedia heading>
+ Leap Years: <strong>{leap_year}</strong>
+</MDBMedia>
+</MDBMedia>
+</MDBMedia>
+
+</MDBRow>
+
+<MDBRow>
+<MDBMedia>
+<MDBMedia body>
+ <MDBMedia heading>
+ Number of Mondays between {start.format('MM/DD/YY')} and {end.format('MM/DD/YY')} is{' '}
+	<strong>{this.state.mondays}</strong>
+</MDBMedia>
+</MDBMedia>
+</MDBMedia>
+
+</MDBRow>
+
+<MDBRow>
+<MDBMedia>
+<MDBMedia body>
+ <MDBMedia heading>
+ <strong>What happened on this day?</strong>
+	<p>{this.props.info.data}</p>
+</MDBMedia>
+</MDBMedia>			 </MDBMedia>
+
+</MDBRow>
+</MDBContainer>
 			</div>
 		);
 	};
 	render() {
 		this.getInfoBox();
 		return (
-			<div>
-				<div>
-					<label>Date Range: </label>
-					<input
+
+			<MDBContainer>
+			<MDBRow>
+			  <MDBCol size="12">Date Range:</MDBCol>
+			</MDBRow>
+			<MDBRow>
+			  <MDBCol size="12">
+			  <MDBInput
 						style={{ padding: '5px', borderRadius: '5px', border: '1px solid #adadad' }}
 						readOnly
 						type="text"
 						placeholder="Select a date range"
 						onClick={this.onToggle}
 					/>
-				</div>
-
-				{this.state.isOpen && (
+			  </MDBCol>
+			</MDBRow>
+			<MDBRow>
+			{this.state.isOpen && (
 					<DateRangePicker value={this.state.value} onSelect={this.onSelect} singleDateRange={true} />
 				)}
 				<br />
 				{this.getInfoBox()}
-			</div>
+			</MDBRow>
+			</MDBContainer>
+			   
 		);
 	}
 }
