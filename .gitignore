@@ -1,0 +1,6 @@
+.idea
+.DS_Store
+store
+node_modules
+temp
+*.bak
